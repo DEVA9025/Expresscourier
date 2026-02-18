@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delhivery - Customer Support & Tracking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #d10000;
+            --primary-dark: #a80000;
+            --secondary: #1a1a1a;
+            --light: #f5f5f5;
+            --gray: #666;
+            --light-gray: #e0e0e0;
+            --white: #ffffff;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .ship-now-btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .ship-now-btn:hover {
+            background: var(--primary-dark);
+            color: var(--white);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--secondary);
+        }
+        
+        /* Combined Track & Ship Section */
+        .track-section {
+            padding: 4rem 5%;
+            background: #0b0b0b;
+        }
+
+        .combined-card {
+            background: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        .card-header {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #d10000;
+            border-bottom: 3px solid #d10000;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .track-methods {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .method {
+            text-align: center;
+            padding: 1rem 0.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-weight: 500;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+        }
+
+        .method.active {
+            background: #d10000;
+            color: white;
+            border-color: #d10000;
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #d10000;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: #d10000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #b30000;
+        }
+
+        .ship-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .ship-option {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-weight: 500;
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+        }
+
+        .ship-option.active {
+            background: #d10000;
+            color: white;
+            border-color: #d10000;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .signup-link a {
+            color: #d10000;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding: 60px 0;
+        }
+        
+        .content-section {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .content-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            font-size: 1.4rem;
+            margin: 25px 0 15px;
+            color: var(--secondary);
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+        
+        /* FAQ Section */
+        .faq-list {
+            list-style: none;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-item a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .faq-item a:hover {
+            color: var(--primary);
+        }
+        
+        .help-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .help-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* App Download */
+
+        .app-download {
+            
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .app-download h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+        
+        .app-download p {
+            margin-bottom: 20px;
+            color: var(--light-gray);
+        }
+        
+        .app-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .app-btn {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--secondary);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .app-btn:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--white);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom p {
+            margin-bottom: 10px;
+        }
+        
+        .security-policy {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+        }
+        
+        .security-policy h4 {
+            margin-bottom: 10px;
+            color: var(--white);
+        }
+        
+        .security-policy p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--white);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .track-methods {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                border-top: 2px solid var(--primary);
+            }
+            
+            .nav-links.show {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .hero-buttons, .app-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn, .app-btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .track-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .ship-options {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .combined-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+       <header>
+        <nav class="navbar">
+            <div class="logo">DELHIVERY</div>
+            <ul class="nav-links">
+                <li><a href="About.html">About</a></li>
+                <li><a href="career.html">Career</a></li>
+                <li><a href="express-parcel.html">Service</a></li>
+                <li><a href="#">Track</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="#" class="ship-now-btn">Ship Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Documents, Packages, and Everything Else</h1>
+            <p>Counter Anything, Anywhere!</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">Get 25% Off with DLV25</a>
+                <a href="#" class="btn btn-secondary">Download the Delhivery Direct App</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Combined Track & Ship Section -->
+    <section class="track-section">
+        <div class="combined-card">
+            <div class="card-header">
+                <button class="tab-btn active" data-tab="track">Track order</button>
+                <button class="tab-btn" data-tab="ship">Ship order</button>
+            </div>
+            
+            <!-- Track Tab Content -->
+            <div class="tab-content active" id="track-content">
+                <h3 style="margin-bottom: 1.5rem; color: #333;">Track your order through</h3>
+                
+                <div class="track-methods">
+                    <div class="method active">Mobile</div>
+                    <div class="method">AWB</div>
+                    <div class="method">Order Id</div>
+                    <div class="method">LRN</div>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" placeholder="Enter your mobile number">
+                </div>
+
+                <button class="btn">Get OTP</button>
+            </div>
+            
+            <!-- Ship Tab Content -->
+            <div class="tab-content" id="ship-content">
+                <h3 style="color: #d10000; margin-bottom: 1.5rem;">Ship personal courier</h3>
+                
+                <div class="ship-options">
+                    <div class="ship-option active">Domestic</div>
+                    <div class="ship-option">International</div>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" placeholder="Enter pickup pin code">
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="Enter delivery pin code">
+                </div>
+
+                <button class="btn">Get OTP & Ship Now</button>
+
+                <div class="signup-link">
+                    <a href="#">Sign up to ship as a business here</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Left Column -->
+            <div class="left-column">
+                <section class="content-section">
+                    <h2>Customer Support</h2>
+                    <p>Our Customer Support team is reachable only from our website or app. Login with your phone number and raise your support request with us.</p>
+                    
+                    <h3>FAQs</h3>
+                    <ul class="faq-list">
+                        <li class="faq-item"><a href="#">Why is my package delayed?</a></li>
+                        <li class="faq-item"><a href="#">What do I do if tracking page doesn't show the expected date of arrival?</a></li>
+                        <li class="faq-item"><a href="#">How can I get the contact number of my delivery partner?</a></li>
+                        <li class="faq-item"><a href="#">What should I do if I am not available at the time of delivery?</a></li>
+                        <li class="faq-item"><a href="#">My shipment has been returned/cancelled. What should I do?</a></li>
+                    </ul>
+                    <a href="#" class="help-link">Need More Help? →</a>
+                </section>
+            </div>
+            
+            <!-- Right Column -->
+            <div class="right-column">
+                <section class="content-section">
+                    <h3>Quick Links</h3>
+                    <ul class="faq-list">
+                        <li class="faq-item"><a href="#">Ship to your friends →</a></li>
+                        <li class="faq-item"><a href="#">For Businesses →</a></li>
+                    </ul>
+                </section>
+                
+                <div class="app-download">
+                    <h3>Download Our App</h3>
+                    <p>Track shipments, schedule pickups, and more</p>
+                    <div class="app-buttons">
+                        <a href="#" class="app-btn">Download on the App Store</a>
+                        <a href="#" class="app-btn">GET IT ON Google Play</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SERVICES</h3>
+                    <ul>
+                        <li><a href="#">Express Parcel</a></li>
+                        <li><a href="#">Warehousing</a></li>
+                        <li><a href="#">Part Truckload</a></li>
+                        <li><a href="#">Full Truckload</a></li>
+                        <li><a href="#">Cross Border</a></li>
+                        <li><a href="#">Data Intelligence</a></li>
+                        <li><a href="#">Software Platform</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>SOLUTIONS</h3>
+                    <ul>
+                        <li><a href="#">D2C Brands</a></li>
+                        <li><a href="#">Personal Courier</a></li>
+                        <li><a href="#">B2B Enterprises</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>PARTNERS</h3>
+                    <ul>
+                        <li><a href="#">Franchise Opportunities</a></li>
+                        <li><a href="#">Delivery Partner</a></li>
+                        <li><a href="#">Fleet Owner</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>COMPANY</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Governance</a></li>
+                        <li><a href="#">Investor Relations</a></li>
+                        <li><a href="#">ODR Portal</a></li>
+                        <li><a href="#">Press Release</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>GET IN TOUCH</h3>
+                    <ul>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Raise a query</a></li>
+                        <li><a href="#">Store Locator</a></li>
+                        <li><a href="#">Rate Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>POLICIES</h3>
+                    <ul>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Fraud Disclaimer</a></li>
+                        <li><a href="#">ONDC Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="security-policy">
+                <h4>Information Security Policy</h4>
+                <p>Delhivery is committed to safeguarding the confidentiality, integrity and availability of all physical and electronic information assets of the organization. We ensure that the regulatory, operational and contractual requirements are fulfilled.</p>
+            </div>
+            
+            <div class="footer-bottom">
+                <p><strong>Disclaimer:</strong> Operational metrics listed are as of August 04, 2023</p>
+                <p>&copy; 2025 Delhivery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        });
+
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                tabBtns.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+
+        // Method selection functionality
+        const methods = document.querySelectorAll('.method');
+        methods.forEach(method => {
+            method.addEventListener('click', () => {
+                methods.forEach(m => m.classList.remove('active'));
+                method.classList.add('active');
+            });
+        });
+
+        // Ship option selection functionality
+        const shipOptions = document.querySelectorAll('.ship-option');
+        shipOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                shipOptions.forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

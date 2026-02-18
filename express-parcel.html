@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express Parcel Services | Delhivery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #d10000;
+            --primary-dark: #a80000;
+            --secondary: #1a1a1a;
+            --light: #f5f5f5;
+            --gray: #666;
+            --light-gray: #e0e0e0;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .ship-now-btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .ship-now-btn:hover {
+            background: var(--primary-dark);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 5rem 5%;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--light-gray);
+        }
+
+        .business-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .business-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--secondary);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Express Parcel Section */
+        .express-parcel {
+            background: var(--light);
+        }
+
+        .express-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .express-text {
+            flex: 1;
+        }
+
+        .express-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .express-text p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .express-stats {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-box {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Efficiency Section */
+        .efficiency-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .efficiency-text {
+            padding-right: 2rem;
+        }
+
+        .efficiency-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .efficiency-text p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .efficiency-features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            background: var(--primary);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .feature-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Segments Section */
+        .segments {
+            background: var(--light);
+        }
+
+        .segments-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .segment-item {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .segment-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .segment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .segment-item h3 {
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+
+        /* Technology Section */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tech-image {
+            background: var(--light);
+            border-radius: 8px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tech-features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .tech-item {
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .tech-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .tech-item p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: var(--light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-item {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .testimonial-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-logo {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+
+        .testimonial-company {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .testimonial-text {
+            color: var(--gray);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: var(--white);
+            padding: 3rem 5%;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #444;
+            color: var(--light-gray);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .express-content {
+                flex-direction: column;
+            }
+            
+            .efficiency-grid, .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .segments-grid, .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .express-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .segments-grid, .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                margin-top: 120px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">DELHIVERY</div>
+            <ul class="nav-links">
+                <li><a href="About.html">About</a></li>
+                <li><a href="career.html">Career</a></li>
+                <li><a href="express-parcel.html">Service</a></li>
+                <li><a href="#">Track</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="#" class="ship-now-btn">Ship Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>India's eCommerce runs on Delhivery's logistics</h1>
+            <p>Trusted partner for small businesses, large marketplaces and anyone else looking to send parcels across the country efficiently</p>
+            <a href="#" class="business-btn">Sign Up as a Business →</a>
+        </div>
+    </section>
+
+    <!-- Express Parcel Section -->
+    <section class="express-parcel">
+        <div class="express-content">
+            <div class="express-text">
+                <h2>We are India's largest Express Parcel player</h2>
+                <p>Delhivery's infrastructure and technology power our Express parcel service that caters to eCommerce marketplaces, D2C brands, omnichannel retailers, small and medium industries, large enterprises and consumers.</p>
+                <p>With Industry leading TATs and service level adherence, we ensure that your shipments reach more than 99.5% of India's population reliably and effectively.</p>
+            </div>
+            <div class="express-stats">
+                <div class="stat-box">
+                    <div class="stat-number">3.4 Bn+</div>
+                    <div class="stat-label">Parcels shipped since inception</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">30K+</div>
+                    <div class="stat-label">Businesses served</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">18,700+</div>
+                    <div class="stat-label">Pin codes covered</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">99.5%</div>
+                    <div class="stat-label">Population coverage</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Efficiency Section -->
+    <section>
+        <h2 class="section-title">Drive efficiency with scale to reach the remotest corners of India</h2>
+        <div class="efficiency-grid">
+            <div class="efficiency-text">
+                <p>Delhivery's data science capabilities powers a mesh network that determine the most optimal path for your shipments</p>
+            </div>
+            <div class="efficiency-features">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Faster shipping</h3>
+                        <p>Reach your customers on industry leading Turn Around Time across Air and Surface modes</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Free early COD remittance</h3>
+                        <p>Free up your working capital with next day COD remittance at no additional charges</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Faster customer service</h3>
+                        <p>Directly work with our dedicated service representatives to promptly resolve all your queries</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Value added services</h3>
+                        <p>Verify returns at customer's doorstep and improve saleability for your products</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Segments Section -->
+    <section class="segments">
+        <h2 class="section-title">Segments we serve</h2>
+        <div class="segments-grid">
+            <div class="segment-item">
+                <div class="segment-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <h3>D2C brands</h3>
+            </div>
+            <div class="segment-item">
+                <div class="segment-icon">
+                    <i class="fas fa-industry"></i>
+                </div>
+                <h3>Small & medium enterprises</h3>
+            </div>
+            <div class="segment-item">
+                <div class="segment-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3>Marketplaces</h3>
+            </div>
+            <div class="segment-item">
+                <div class="segment-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h3>Banks & financial institutions</h3>
+            </div>
+            <div class="segment-item">
+                <div class="segment-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Social commerce</h3>
+            </div>
+            <div class="segment-item">
+                <div class="segment-icon">
+                    <i class="fas fa-box"></i>
+                </div>
+                <h3>Personal Shipping</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section>
+        <h2 class="section-title">Grow your brand through our technology driven logistics platform</h2>
+        <div class="tech-grid">
+            <div class="tech-image">
+                <i class="fas fa-laptop-code" style="font-size: 5rem; color: var(--primary);"></i>
+            </div>
+            <div class="tech-features">
+                <div class="tech-item">
+                    <h3>API integration</h3>
+                    <p>Seamlessly integrate your sales channels (like Website, Marketplaces) with our built in integrations</p>
+                </div>
+                <div class="tech-item">
+                    <h3>RTO Predictor</h3>
+                    <p>Over 2 Billion shipments have trained our Machine Learning algorithms to call out potential RTOs</p>
+                </div>
+                <div class="tech-item">
+                    <h3>Address validation</h3>
+                    <p>Increase deliverability using our address intelligence products to validate and standardise</p>
+                </div>
+                <div class="tech-item">
+                    <h3>Non Delivery Management</h3>
+                    <p>Reduce Return-To-Origin using our WhatsApp communication services and business intelligence product suite</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2 class="section-title">What our customers say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-item">
+                <div class="testimonial-header">
+                    <div class="testimonial-logo">46</div>
+                    <div class="testimonial-company">nestasia</div>
+                </div>
+                <p class="testimonial-text">Delhivery's efficient NDR management, dedicated Account Manager, and RTO predictor tool helped us to reduce returns and shipping costs.</p>
+            </div>
+            <div class="testimonial-item">
+                <div class="testimonial-header">
+                    <div class="testimonial-logo">M</div>
+                    <div class="testimonial-company">meesho</div>
+                </div>
+                <p class="testimonial-text">Delhivery has been our partner of choice, given its pan-India reach to the remotest corners of India.</p>
+            </div>
+            <div class="testimonial-item">
+                <div class="testimonial-header">
+                    <div class="testimonial-logo">FP</div>
+                    <div class="testimonial-company">FABRIC PANDIT</div>
+                </div>
+                <p class="testimonial-text">Delhivery helped us reduce our response time to under two hours, thereby building brand trust; reducing costs on shipping high-volume orders, and improving delivery speed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Express Parcel</a></li>
+                    <li><a href="#">Freight</a></li>
+                    <li><a href="#">Supply Chain</a></li>
+                    <li><a href="#">Cross Border</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">API Documentation</a></li>
+                    <li><a href="#">Shipping Calculator</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Service Level Agreement</a></li>
+                    <li><a href="#">Cancellation & Refund</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Delhivery. All rights reserved. India's Largest Logistics Provider</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effect to all interactive elements
+            const interactiveElements = document.querySelectorAll('.stat-box, .segment-item, .testimonial-item, .tech-item');
+            
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 10px 25px rgba(209, 0, 0, 0.1)';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.05)';
+                });
+            });
+            
+            // Ship Now button functionality
+            const shipNowBtn = document.querySelector('.ship-now-btn');
+            shipNowBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Redirecting to shipping page...');
+            });
+            
+            // Business sign up button
+            const businessBtn = document.querySelector('.business-btn');
+            businessBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Redirecting to business registration...');
+            });
+        });
+    </script>
+</body>
+</html>
+

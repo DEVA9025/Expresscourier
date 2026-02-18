@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers at Delhivery - Shape the Future of Logistics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #d10000;
+            --primary-dark: #a80000;
+            --secondary: #1a1a1a;
+            --light: #f5f5f5;
+            --gray: #666;
+            --light-gray: #e0e0e0;
+            --white: #ffffff;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .ship-now-btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .ship-now-btn:hover {
+            background: var(--primary-dark);
+            color: var(--white);
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--white);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 150px 0 100px;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--secondary);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Opportunities Section */
+        .opportunities {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .opportunity-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(209, 0, 0, 0.1);
+        }
+        
+        .card-icon {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .card-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .card-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .card-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Job Categories */
+        .job-categories {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .category-tab {
+            padding: 12px 25px;
+            background-color: var(--light);
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-tab.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .category-tab:hover:not(.active) {
+            background-color: var(--light-gray);
+        }
+        
+        .category-content {
+            display: none;
+        }
+        
+        .category-content.active {
+            display: block;
+        }
+        
+        .job-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .job-item {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s;
+        }
+        
+        .job-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .job-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .job-item p {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .job-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--white);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        .certifications {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: var(--light-gray);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                border-top: 2px solid var(--primary);
+            }
+            
+            .nav-links.show {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">DELHIVERY</div>
+            <button class="mobile-menu-btn">☰</button>
+            <ul class="nav-links">
+                <li><a href="About.html">About</a></li>
+                <li><a href="career.html">Career</a></li>
+                <li><a href="express-parcel.html">Service</a></li>
+                <li><a href="#">Track</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="#" class="ship-now-btn">Ship Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Build a career at Delhivery</h1>
+            <p>Join a dynamic team of over 60,000 employees shaping the future of logistics in India</p>
+            <div class="hero-buttons">
+                <a href="#opportunities" class="btn btn-primary">Explore Opportunities</a>
+                <a href="#job-categories" class="btn btn-secondary">View Open Positions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Join Us</h2>
+                <p>Delhivery is India's largest fully integrated logistics service provider.</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>We're looking for curious people with a desire to solve challenging business problems</h3>
+                    <p>We move fast, operate under pressure and solve business problems. Our aim is to attract the highest quality of talent and provide them opportunities for leadership and professional growth in a diverse and inclusive environment.</p>
+                    <p>Shape the future of logistics with us and kickstart your operations career with our Skills Development Program.</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Delhivery Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opportunities Section -->
+    <section class="opportunities" id="opportunities">
+        <div class="container">
+            <div class="section-title">
+                <h2>Career Opportunities</h2>
+                <p>Discover the various ways you can build your career with Delhivery</p>
+            </div>
+            <div class="opportunity-cards">
+                <div class="card">
+                    <div class="card-icon">💼</div>
+                    <div class="card-content">
+                        <h3>Corporate Jobs</h3>
+                        <p>Join our corporate team and help drive strategic decisions that shape the future of logistics in India.</p>
+                        <a href="#" class="card-link">View Openings →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏭</div>
+                    <div class="card-content">
+                        <h3>Warehouse Jobs</h3>
+                        <p>Be part of our operations team and help manage our nationwide network of warehouses and fulfillment centers.</p>
+                        <a href="#" class="card-link">View Openings →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚚</div>
+                    <div class="card-content">
+                        <h3>Delivery Partner Jobs</h3>
+                        <p>Earn more by delivering with Delhivery. Join our network of delivery partners across the country.</p>
+                        <a href="#" class="card-link">Become a Partner →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Categories -->
+    <section class="job-categories" id="job-categories">
+        <div class="container">
+            <div class="section-title">
+                <h2>Current Openings</h2>
+                <p>Browse through our available positions and find the right fit for you</p>
+            </div>
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="corporate">Corporate Jobs</button>
+                <button class="category-tab" data-category="warehouse">Warehouse Jobs</button>
+                <button class="category-tab" data-category="delivery">Delivery Partner Jobs</button>
+            </div>
+            
+            <div class="category-content active" id="corporate">
+                <div class="job-list">
+                    <div class="job-item">
+                        <h4>Business Analyst</h4>
+                        <p>Analyze business processes and recommend improvements to increase efficiency.</p>
+                        <div class="job-meta">
+                            <span>Gurugram</span>
+                            <span>Full-time</span>
+                        </div>
+                    </div>
+                    <div class="job-item">
+                        <h4>Software Engineer</h4>
+                        <p>Develop and maintain software solutions for logistics operations.</p>
+                        <div class="job-meta">
+                            <span>Bengaluru</span>
+                            <span>Full-time</span>
+                        </div>
+                    </div>
+                    <div class="job-item">
+                        <h4>Marketing Manager</h4>
+                        <p>Develop and execute marketing strategies to increase brand awareness.</p>
+                        <div class="job-meta">
+                            <span>Mumbai</span>
+                            <span>Full-time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-content" id="warehouse">
+                <div class="job-list">
+                    <div class="job-item">
+                        <h4>Warehouse Supervisor</h4>
+                        <p>Oversee daily warehouse operations and manage a team of associates.</p>
+                        <div class="job-meta">
+                            <span>Delhi</span>
+                            <span>Full-time</span>
+                        </div>
+                    </div>
+                    <div class="job-item">
+                        <h4>Inventory Specialist</h4>
+                        <p>Manage inventory levels and ensure accurate stock records.</p>
+                        <div class="job-meta">
+                            <span>Chennai</span>
+                            <span>Full-time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-content" id="delivery">
+                <div class="job-list">
+                    <div class="job-item">
+                        <h4>Delivery Partner</h4>
+                        <p>Join our network and earn by delivering packages in your area.</p>
+                        <div class="job-meta">
+                            <span>Multiple Cities</span>
+                            <span>Flexible</span>
+                        </div>
+                    </div>
+                    <div class="job-item">
+                        <h4>Fleet Manager</h4>
+                        <p>Manage and coordinate delivery partner operations in your region.</p>
+                        <div class="job-meta">
+                            <span>Hyderabad</span>
+                            <span>Full-time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Shape the Future of Logistics?</h2>
+            <p>Join our team of over 60,000 professionals and be part of India's logistics revolution.</p>
+            <a href="#" class="btn btn-secondary">Apply Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DELHIVERY</h3>
+                    <p>India's largest fully integrated logistics service provider.</p>
+                    <div class="certifications">
+                        <p>ISO 9001:2015, ISO 27001:2013 certified Company</p>
+                        <p>CIN: L63000DL2011PLC215113</p>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Solutions</a></li>
+                        <li><a href="#">Partner</a></li>
+                        <li><a href="#">Company</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Track</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                <div class="footer-column">
+                    <h3>Careers</h3>
+                    <ul>
+                        <li><a href="#">Corporate Jobs</a></li>
+                        <li><a href="#">Warehouse Jobs</a></li>
+                        <li><a href="#">Delivery Partners</a></li>
+                        <li><a href="#">Skills Development Program</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Delhivery. All rights

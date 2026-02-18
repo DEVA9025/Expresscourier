@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express Delivery - India's Largest Logistics Provider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        
+        :root {
+            --primary: #d10000;
+            --primary-dark: #a80000;
+            --secondary: #1a1a1a;
+            --light: #f5f5f5;
+            --gray: #666;
+            --light-gray: #e0e0e0;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+         header {
+            background-color: var(--secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .ship-now-btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .ship-now-btn:hover {
+            background: var(--primary-dark);
+            color: var(--white);
+        }
+
+
+        /* Hero Section */
+        .hero {
+            margin-top: 100px;
+            padding: 4rem 5%;
+            background: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        .hero-main {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-main h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            font-weight: 600;
+            color: #333;
+            transition: transform 0.3s;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Combined Track & Ship Section */
+        .track-section {
+            padding: 4rem 5%;
+            background: #0b0b0b;
+        }
+
+        .combined-card {
+            background: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        .card-header {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #d10000;
+            border-bottom: 3px solid #d10000;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .track-methods {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .method {
+            text-align: center;
+            padding: 1rem 0.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-weight: 500;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+        }
+
+        .method.active {
+            background: #d10000;
+            color: white;
+            border-color: #d10000;
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #d10000;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: #d10000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #b30000;
+        }
+
+        .ship-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .ship-option {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-weight: 500;
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+        }
+
+        .ship-option.active {
+            background: #d10000;
+            color: white;
+            border-color: #d10000;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .signup-link a {
+            color: #d10000;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* App Section */
+        .app-section {
+            text-align: center;
+            padding: 2rem 5%;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .app-section p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .app-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .app-btn {
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .app-btn:hover {
+            background: #555;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 5%;
+            background: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-item h2 {
+            font-size: 2.5rem;
+            color: #d10000;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Services Section */
+        .services-detailed {
+            padding: 4rem 5%;
+            background: #080808;
+        }
+
+        .services-detailed h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #fbfafa;
+            font-size: 2.2rem;
+        }
+
+        .services-grid-detailed {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .service-image {
+            height: 180px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d10000;
+            font-size: 2.5rem;
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .service-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .know-more {
+            background: none;
+            border: 2px solid #d10000;
+            color: #d10000;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .know-more:hover {
+            background: #d10000;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 5%;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer p {
+            color: #999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero {
+                margin-top: 140px;
+            }
+            
+            .track-methods {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .app-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .app-btn {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-grid-detailed {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-main h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">DELHIVERY</div>
+            <ul class="nav-links">
+                <li><a href="About.html">About</a></li>
+                <li><a href="career.html">Career</a></li>
+                <li><a href="express-parcel.html">Service</a></li>
+                <li><a href="#">Track</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="#" class="ship-now-btn">Ship Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-main">
+            <h1>We are India's largest fully integrated logistics services provider</h1>
+            <div class="services-grid">
+                <div class="service-item">Express Parcel</div>
+                <div class="service-item">PTL - FTL - Cross Border</div>
+                <div class="service-item">Supply Chain</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Combined Track & Ship Section -->
+    <section class="track-section">
+        <div class="combined-card">
+            <div class="card-header">
+                <button class="tab-btn active" data-tab="track">Track order</button>
+                <button class="tab-btn" data-tab="ship">Ship order</button>
+            </div>
+            
+            <!-- Track Tab Content -->
+            <div class="tab-content active" id="track-content">
+                <h3 style="margin-bottom: 1.5rem; color: #333;">Track your order through</h3>
+                
+                <div class="track-methods">
+                    <div class="method active">Mobile</div>
+                    <div class="method">AWB</div>
+                    <div class="method">Order Id</div>
+                    <div class="method">LRN</div>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" placeholder="Enter your mobile number">
+                </div>
+
+                <button class="btn">Get OTP</button>
+            </div>
+            
+            <!-- Ship Tab Content -->
+            <div class="tab-content" id="ship-content">
+                <h3 style="color: #d10000; margin-bottom: 1.5rem;">Ship personal courier</h3>
+                
+                <div class="ship-options">
+                    <div class="ship-option active">Domestic</div>
+                    <div class="ship-option">International</div>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" placeholder="Enter pickup pin code">
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="Enter delivery pin code">
+                </div>
+
+                <button class="btn">Get OTP & Ship Now</button>
+
+                <div class="signup-link">
+                    <a href="#">Sign up to ship as a business here</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Section -->
+    <section class="app-section">
+        <p>Live tracking updates & extra support on our App</p>
+        <div class="app-buttons">
+            <button class="app-btn">Google Play</button>
+            <button class="app-btn">App Store</button>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h2>4M+</h2>
+                <p>Parcels Shipped</p>
+            </div>
+            <div class="stat-item">
+                <h2>99.5%</h2>
+                <p>Indian Population Covered</p>
+            </div>
+            <div class="stat-item">
+                <h2>33K+</h2>
+                <p>Businesses Served</p>
+            </div>
+            <div class="stat-item">
+                <h2>20M+</h2>
+                <p>Successful Deliveries</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-detailed">
+        <h2>Services that power our solutions ecosystem</h2>
+        <div class="services-grid-detailed">
+            <div class="service-card">
+                <div class="service-image">🚚</div>
+                <div class="service-content">
+                    <h3>Express Parcel Services</h3>
+                    <p>Fast and reliable express parcel delivery services across India with real-time tracking.</p>
+                    <button class="know-more">Know More</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🏭</div>
+                <div class="service-content">
+                    <h3>Warehouse Solutions</h3>
+                    <p>State-of-the-art warehousing facilities with inventory management and fulfillment services.</p>
+                    <button class="know-more">Know More</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">📦</div>
+                <div class="service-content">
+                    <h3>Part Truckload Freight</h3>
+                    <p>Cost-effective part truckload services for businesses of all sizes with flexible scheduling.</p>
+                    <button class="know-more">Know More</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🚛</div>
+                <div class="service-content">
+                    <h3>Full Truckload Freight</h3>
+                    <p>Dedicated full truckload services for large shipments with guaranteed capacity and timing.</p>
+                    <button class="know-more">Know More</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🌍</div>
+                <div class="service-content">
+                    <h3>Cross Border Services</h3>
+                    <p>International shipping solutions with customs clearance and global logistics support.</p>
+                    <button class="know-more">Know More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Career</a>
+                <a href="#">Track</a>
+                <a href="#">Support</a>
+                <a href="#">Contact</a>
+            </div>
+            <p>&copy; 2024 Express Delivery. All rights reserved. India's Largest Logistics Provider</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality for combined card
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track/Ship tabs
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(tabId + '-content').classList.add('active');
+                });
+            });
+
+            // Track methods
+            const methods = document.querySelectorAll('.method');
+            methods.forEach(method => {
+                method.addEventListener('click', function() {
+                    this.closest('.track-methods').querySelectorAll('.method').forEach(m => m.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Ship options
+            const shipOptions = document.querySelectorAll('.ship-option');
+            shipOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    this.closest('.ship-options').querySelectorAll('.ship-option').forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Track button functionality
+            const trackBtn = document.querySelector('#track-content .btn');
+            trackBtn.addEventListener('click', function() {
+                const trackInput = document.querySelector('#track-content input');
+                if (trackInput.value.trim() === '') {
+                    alert('Please enter your mobile number');
+                } else {
+                    alert('OTP sent to: ' + trackInput.value);
+                }
+            });
+
+            // Ship button functionality
+            const shipBtn = document.querySelector('#ship-content .btn');
+            shipBtn.addEventListener('click', function() {
+                const fromPincode = document.querySelectorAll('#ship-content input')[0];
+                const toPincode = document.querySelectorAll('#ship-content input')[1];
+                
+                if (fromPincode.value.trim() === '' || toPincode.value.trim() === '') {
+                    alert('Please enter both pickup and delivery pincodes');
+                } else {
+                    alert('OTP sent for shipping from ' + fromPincode.value + ' to ' + toPincode.value);
+                }
+            });
+
+            // App buttons functionality
+            const appButtons = document.querySelectorAll('.app-btn');
+            appButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const store = this.textContent;
+                    alert('Redirecting to ' + store);
+                });
+            });
+
+            // Know More buttons functionality
+            const knowMoreBtns = document.querySelectorAll('.know-more');
+            knowMoreBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const serviceName = this.closest('.service-content').querySelector('h3').textContent;
+                    alert('More information about: ' + serviceName);
+                });
+            });
+
+            // Ship Now button in navigation
+            const shipNowBtn = document.querySelector('.ship-now-btn');
+            shipNowBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Switch to ship tab when clicking Ship Now in navigation
+                document.querySelector('.tab-btn[data-tab="ship"]').click();
+            });
+        });
+    </script>
+</body>
+</html>
